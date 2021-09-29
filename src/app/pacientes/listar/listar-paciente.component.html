@@ -1,0 +1,40 @@
+<h1>Pacientes</h1>
+
+<table class="table table-striped table-bordered table-hover">
+    <tbody>
+        <tr>
+            <th>Paciente</th>
+            <th>Prioridade</th>
+            <th>Status do Atendimento</th>
+            <th class="text-center">
+                <a class="btn btn-xs btn-success" [routerLink]="['/pacientes/cadastrar']">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Novo
+                </a>
+            </th>
+        </tr>
+        <tr *ngFor="let paciente of pacientes" [class.d-none] = "!paciente.ative">
+            <td  [pacienteAtendide]="paciente.atendide" >
+                {{ paciente.nome }}
+            </td>
+            <td *ngIf="paciente.prioridade=='true'" class="table-danger">
+
+            </td>
+            <td *ngIf="paciente.prioridade=='false'" class="table-success">
+
+            </td>
+            <td style="width: 70px" class="text-center">
+                <input type="checkbox" [value]="paciente.id" [checked]="paciente.atendide" (click)="alterarStatus(paciente)">
+            </td>
+            <td class="text-center" style="width: 200px">
+                <a title="Editar" alt="Editar" class="btn btn-xs btn-info" [routerLink]="['/pacientes/editar', paciente.id]">
+                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Editar
+                </a>
+                <a href="#" title="Remover" alt="Remover" class="btn btn-xs btn-danger" (click)="remover(paciente)">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Remover
+                </a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<p *ngIf="pacientes.length==0">Nenhum paciente cadastrado.</p>

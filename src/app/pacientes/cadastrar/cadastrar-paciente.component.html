@@ -1,0 +1,38 @@
+<h1>Inserir Paciente</h1>
+
+<div class="well">
+    <form #formPaciente="ngForm">
+        <div class="form-group">
+            <label for="nome">Paciente:</label>
+            <input type="text" class="form-control" id="nome" name="nome" [(ngModel)]="paciente.nome" #nome="ngModel"
+                minlength="4" required>
+            <div *ngIf="nome.errors && (nome.dirty || nome.touched)" class="alert alert-danger">
+                <div [hidden]="!nome.errors.required">
+                    Digite o nome.
+                </div>
+                <div [hidden]="!nome.errors.minlength">
+                    A nome deve conter ao menos 4 caracteres.
+                </div>
+            </div>
+            <label for="prioridade">Prioridade:</label>
+            <select name="prioridade" id="prioridade" [(ngModel)]="paciente.prioridade" #prioridade="ngModel">
+                <option value="true">Sim</option>
+                <option value="false">Não</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="available">Ativo:</label>
+            <input type="checkbox" value="true" class="form-check-input" id="ative" name="ative"
+                [(ngModel)]="paciente.ative" #ative="ngModel" required> <br>
+            <small class="text-muted"><i>Você só pode adicionar pacientes ativos!</i></small>
+        </div>
+
+        <div class="form-group text-center">
+            <input type="submit" class="btn btn-success" (click)="cadastrar()" value="Cadastrar"
+                [disabled]="!formPaciente.form.valid">
+            <a class="btn btn-default" [routerLink]="['/pacientes']">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Voltar
+            </a>
+        </div>
+    </form>
+</div>
